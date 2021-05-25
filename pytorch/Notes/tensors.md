@@ -123,7 +123,7 @@ tensor([[-0.1859,  1.3970,  0.5236],
         [-1.8968,  2.0164,  0.1092]])
 
 #注意
-任何使张量会发生变化的操作都有一个前缀 ‘’。例如：x.copy(y), x.t_(), 将会改变 x.
+#任何使张量会发生变化的操作都有一个前缀 ‘’。例如：x.copy(y), x.t_(), 将会改变 x.
 ~~~
 
 #### 4，使用NumPy类似的索引操作
@@ -143,12 +143,12 @@ print(x.size(), y.size(), z.size())
 #输出
 torch.Size([4, 4]) torch.Size([16]) torch.Size([2, 8])
 ~~~
-#### 6，使用.item()来获得元素 tensor的value 。
+#### 6，使用.item()来获得元素tensor的value
 ~~~py
 x = torch.randn(1)
 print(x)
 print(x.item())
-
+#输出
 tensor([ 0.9422])
 0.9422121644020081
 ~~~
