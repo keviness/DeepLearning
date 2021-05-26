@@ -76,7 +76,7 @@ torch.Size 是一个元组，所以它支持左右的元组操作。
 ~~~
 
 #### 3，Tensors加法操作
-##### （1）方式 1
+##### （1）方式1
 ~~~py
 y = torch.rand(5, 3)
 print(x + y)
@@ -152,3 +152,36 @@ print(x.item())
 tensor([ 0.9422])
 0.9422121644020081
 ~~~
+
+#### 7，Tensor与Numpy之间的转换
+
+##### （1）Tensor to NumPy array
+~~~py
+t = torch.ones(5)
+print(f"t: {t}")
+n = t.numpy()
+print(f"n: {n}")
+#Out:
+t: tensor([1., 1., 1., 1., 1.])
+n: [1. 1. 1. 1. 1.]
+
+#---A change in the tensor reflects in the NumPy array---
+t.add_(1)
+print(f"t: {t}")
+print(f"n: {n}")
+#Out:
+t: tensor([2., 2., 2., 2., 2.])
+n: [2. 2. 2. 2. 2.]
+~~~
+
+##### （2）NumPy array to Tensor
+~~~py
+n = np.ones(5)
+t = torch.from_numpy(n)
+#---Changes in the NumPy array reflects in the tensor---
+np.add(n, 1, out=n)
+print(f"t: {t}")
+print(f"n: {n}")
+#Out:
+t: tensor([2., 2., 2., 2., 2.], dtype=torch.float64)
+n: [2. 2. 2. 2. 2.]
