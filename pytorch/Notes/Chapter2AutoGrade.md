@@ -49,6 +49,7 @@ tensor([[27., 27.],
         [27., 27.]], grad_fn=<MulBackward0>) 
 tensor(27., grad_fn=<MeanBackward0>)
 ~~~
+
 #### 4，.requires_grad_( ... )
 * .requires_grad_( ... ) 会改变张量的 requires_grad 标记。
 * 输入的标记默认为 False ，如果没有提供相应的参数。
