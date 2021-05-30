@@ -1,4 +1,8 @@
 # DeepLearning
+<p align="center">
+  <a href="https://keviness.top"><img src="https://img.shields.io/badge/blog-博客-critical" alt="博客"></a>
+  <a href="https://keviness.top/image/WeChatPublic.jpg" target="_blank"><img src="https://img.shields.io/badge/WeChat-微信公众号-blue.svg" alt="微信公众号"></a>
+</p>
 
 ## 一，Pytorch
 ![Pytorch Chapters](./pytorch/imgs/PytorchChapter.png)
