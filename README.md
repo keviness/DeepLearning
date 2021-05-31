@@ -8,6 +8,6 @@
 ![Pytorch Chapters](./pytorch/imgs/PytorchChapter.png)
 | Chapters | Descriptions | Notes |
 |:--------:|:------------:|:-----:|
-|  绪论    |  pytorch简介  | [pytorch简介](./pytorch/Notes/绪论.md) |
-|  Chapte1|  Tensors(张量)| [Tensors(张量)](./pytorch/Notes/Chapter1Tensors.md)|
-|  Chapte2| PytorchAutoGrade(自动微分)| [TPytorch自动微分](./pytorch/Notes/Chapter2AutoGrade.md)|
+|  绪论    |  pytorch简介  | [pytorch简介](./pytorch/Notes/绪论/绪论.md) |
+|  Chapte1|  Tensors常用操作 <br/> 广播机制| [Tensors(张量)](./pytorch/Notes/Chapter1/TensorsDataOperate.md)|
+|  Chapte2| PytorchAutoGrade(自动微分)| [Pytorch自动微分](./pytorch/Notes/Chapter2/AutoGrade.md)|
