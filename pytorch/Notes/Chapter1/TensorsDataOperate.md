@@ -1,4 +1,4 @@
-## Chapter2 Tensors的数据操作
+## Chapter2: Tensors的数据操作
 ### 一，创建Tensors (张量)
 > Tensors类似于NumPy的ndarrays，同时Tensors可以使用GPU进行计算
 >"tensor"这个单词一般可译作“张量”，张量可以看作是一个多维数组。标量可以看作是0维张量，向量可以看作1维张量，矩阵可以看作是二维张量。
