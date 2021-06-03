@@ -36,6 +36,12 @@ tensor([[3., 3.],
 print(y.grad_fn)
 #输出：
 <AddBackward0 object at 0x7fe1db427470>
+
+#注意:
+#1, x是直接创建的，所以它没有grad_fn, 而y是通过一个加法操作创建的，所以它有一个为<AddBackward>的grad_fn。
+
+#2, 像x这种直接创建的称为叶子节点，叶子节点对应的grad_fn是None。
+print(x.is_leaf, y.is_leaf) # True False
 ~~~
 
 #### 3，针对y做更多算术操作
@@ -52,21 +58,24 @@ tensor(27., grad_fn=<MeanBackward0>)
 #### 4，.requires_grad_( ... )
 * .requires_grad_( ... ) 会改变张量的 requires_grad 标记。
 * 输入的标记默认为 False ，如果没有提供相应的参数。
+* 通过.requires_grad_()来用in-place的方式改变requires_grad属性：
 ~~~py
-a = torch.randn(2, 2)
+a = torch.randn(2, 2) # 缺失情况下默认 requires_grad = False
 a = ((a * 3) / (a - 1))
-print(a.requires_grad)
+print(a.requires_grad) # False
+#通过.requires_grad_()来用in-place的方式改变requires_grad属性：
 a.requires_grad_(True)
-print(a.requires_grad)
+print(a.requires_grad) # True
 b = (a * a).sum()
 print(b.grad_fn)
+Copy to clipboardErrorCopied
 #输出：
 False
 True
-<SumBackward0 object at 0x7fe1db427dd8>
+<SumBackward0 object at 0x118f50cc0>
 ~~~
 
-#### 5，梯度
+### （二）梯度
 * 我们现在后向传播，因为输出包含了一个标量，out.backward() 等同于out.backward(torch.tensor(1.))。
 * out.backward()
 * 打印梯度 d(out)/dx
@@ -77,7 +86,42 @@ tensor([[4.5000, 4.5000],
         [4.5000, 4.5000]])
 ~~~
 
-#### 6，雅可比向量积的例子
+#### 1，中断梯度追踪的例子：
+~~~py
+x = torch.tensor(1.0, requires_grad=True)
+y1 = x ** 2 
+with torch.no_grad():
+    y2 = x ** 3
+y3 = y1 + y2
+print(x.requires_grad)
+print(y1, y1.requires_grad) # True
+print(y2, y2.requires_grad) # False
+print(y3, y3.requires_grad) # True
+#输出：
+True
+tensor(1., grad_fn=<PowBackward0>) True
+tensor(1.) False
+tensor(2., grad_fn=<ThAddBackward>) True
+~~~
+#### 2，修改tensor的数值，但不希望被autograd记录（即不会影响反向传播）
+>可以对tensor.data进行操作。
+~~~py
+x = torch.ones(1,requires_grad=True)
+print(x.data) # 还是一个tensor
+print(x.data.requires_grad) # 但是已经是独立于计算图之外
+y = 2 * x
+x.data *= 100 # 只改变了值，不会记录在计算图，所以不会影响梯度传播
+y.backward()
+print(x) # 更改data的值也会影响tensor的值
+print(x.grad)
+#输出：
+tensor([1.])
+False
+tensor([100.], requires_grad=True)
+tensor([2.])
+~~~
+
+#### 2，雅可比向量积的例子
 ~~~py
 x = torch.randn(3, requires_grad=True)
 y = x * 2
