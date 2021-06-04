@@ -6,8 +6,9 @@
 
 ## 一，Pytorch
 ![Pytorch Chapters](./pytorch/imgs/PytorchChapter.png)
-| Chapters | Descriptions | Notes |
-|:--------:|:------------:|:-----:|
-|  绪论    |  pytorch简介  | [pytorch简介](./pytorch/Notes/绪论/绪论.md) |
-|  Chapte1|  Tensors数据操作 <br/> Tensors广播机制| [Tensors Data Operation](./pytorch/Notes/Chapter1/TensorsDataOperate.md)<br/> [Tensors Broadcasting](./pytorch/Notes/Chapter1/TensorsBroadcasting.md)|
-|  Chapte2| PytorchAutoGrade(自动微分)| [Pytorch自动微分](./pytorch/Notes/Chapter2/AutoGrade.md)|
+| Chapters | Descriptions | Notes |  Examples  |
+|:--------:|:------------:|:-----:|:----------:|
+|  绪论    |  pytorch简介  | [pytorch简介](./pytorch/Notes/绪论/绪论.md) | -- |
+|  Chapte1|  Tensors数据操作 | [Tensors Data Operation](./pytorch/Notes/Chapter1/TensorsDataOperate.md)| [Tensors Create](./pytorch/Examples/Introduction/TensorsCreate.py) |
+|  Chapte2|  Tensors广播机制| [Tensors Broadcasting](./pytorch/Notes/Chapter1/TensorsBroadcasting.md)|   |
+|  Chapte3| PytorchAutoGrade(自动微分)| [Pytorch自动微分](./pytorch/Notes/Chapter2/AutoGrade.md)|  |

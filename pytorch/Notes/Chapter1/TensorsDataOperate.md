@@ -92,7 +92,7 @@ torch.Size 是一个元组，所以它支持所有的元组操作。
 |randperm(m) |	随机排列 |
 
 
-## 二，Tensor操作
+## 二，Tensors操作
 ### 1，Tensors加法操作
 #### （1）方式1
 ~~~py
@@ -144,13 +144,16 @@ tensor([[-0.1859,  1.3970,  0.5236],
 #注：PyTorch操作inplace版本都有后缀_, 例如x.copy_(y), x.t_()
 ~~~
 
-### 三，与NumPy类似的索引操作
+### 三，索引、切片操作（Indexing, Slicing）
+#### （一）索引与切片
 >可以使用类似NumPy的索引操作来访问Tensor的一部分，需要注意的是：索引出来的结果与原数据共享内存，即修改一个，另一个会跟着修改。
 ~~~py
 print(x[:, 1])
 #输出
 tensor([ 0.4477, -0.0048,  1.0878, -0.2174,  1.3609])
-
+print(x[::2, ::2])
+#输出
+tensor([ 0.4477, -0.0048,  1.0878, -0.2174,  1.3609])
 y = x[0, :]
 y += 1
 print(y)
@@ -159,7 +162,7 @@ print(x[0, :]) # 源tensor也被改了
 tensor([1.6035, 1.8110, 0.9549])
 tensor([1.6035, 1.8110, 0.9549])
 ~~~
-#### 1，PyTorch其他高级的选择函数:
+#### （二）PyTorch其他高级的选择函数:
 | 函数  |  功能   |
 |:----:|:-------:|
 |index_select(input, dim, index)| 在指定维度dim上选取，比如选取某些行、某些列
@@ -167,7 +170,48 @@ tensor([1.6035, 1.8110, 0.9549])
 |nonzero(input)	                |非0元素的下标
 |gather(input, dim, index)	|根据index，在dim维度上选取数据，输出的size与index一样
 
-### 四，改变形状
+### 四，Tensors拼接与变形
+#### （一）拼接（join）
+##### 1, torch.cat(tensors, dim)
+>torch.cat(tensors, dim=0, *, out=None) → Tensor
+~~~py
+>>> x = torch.randn(2, 3)
+>>> x
+tensor([[ 0.6580, -1.0969, -0.4614],
+        [-0.1034, -0.5790,  0.1497]])
+>>> torch.cat((x, x, x), 0)
+tensor([[ 0.6580, -1.0969, -0.4614],
+        [-0.1034, -0.5790,  0.1497],
+        [ 0.6580, -1.0969, -0.4614],
+        [-0.1034, -0.5790,  0.1497],
+        [ 0.6580, -1.0969, -0.4614],
+        [-0.1034, -0.5790,  0.1497]])
+>>> torch.cat((x, x, x), 1)
+tensor([[ 0.6580, -1.0969, -0.4614,  0.6580, -1.0969, -0.4614,  0.6580,
+         -1.0969, -0.4614],
+        [-0.1034, -0.5790,  0.1497, -0.1034, -0.5790,  0.1497, -0.1034,
+         -0.5790,  0.1497]])
+~~~
+##### 2, torch.chunk(input, chunks, dim=0)
+>torch.chunk(input, chunks, dim=0) → List of Tensors
+##### 3, torch.index_select(input, dim, index, *, out=None)
+>torch.index_select(input, dim, index, *, out=None) → Tensor
+~~~py
+>>> x = torch.randn(3, 4)
+>>> x
+tensor([[ 0.1427,  0.0231, -0.5414, -1.0009],
+        [-0.4664,  0.2647, -0.1228, -1.1068],
+        [-1.1734, -0.6571,  0.7230, -0.6004]])
+>>> indices = torch.tensor([0, 2])
+>>> torch.index_select(x, 0, indices)
+tensor([[ 0.1427,  0.0231, -0.5414, -1.0009],
+        [-1.1734, -0.6571,  0.7230, -0.6004]])
+>>> torch.index_select(x, 1, indices)
+tensor([[ 0.1427, -0.5414],
+        [-0.4664, -0.1228],
+        [-1.1734,  0.7230]])
+~~~
+#### （二）变形（mutate）
 > 可以使用torch.view改变Tensor形状
 > Tenso形状的改变为原地修改
 ~~~py
@@ -210,7 +254,18 @@ tensor([1.6035, 1.8110, 0.9549, 1.8797, 2.0482, 0.9555, 0.2771, 3.8663, 0.4345,
         1.1604, 0.9746, 2.0739, 3.2628, 0.0825, 0.7749])
 
 ~~~
-#### PyTorch线性代数
+#### 1，Tensors拼接与变形方法总结
+| Methods |  Descriptions  |
+|:-------:|:--------------:|
+|cat     | Concatenates the given sequence of seq tensors in the given dimension.|
+|chunk    |Splits a tensor into a specific number of chunks.
+|column_stack |Creates a new tensor by horizontally stacking the tensors in tensors.
+| dstack| Stack tensors in sequence depthwise (along third axis).
+|gather  | Gathers values along an axis specified by dim.|
+|hstack  | Stack tensors in sequence horizontally (column wise).
+|index_select  | Returns a new tensor which indexes the input tensor along dimension dim using the entries in index which is a LongTensor.
+|masked_select  |Returns a new 1-D tensor which indexes the input tensor according to the boolean mask mask which is a BoolTensor.
+#### 2，PyTorch线性代数
 |函数  | 功能  |
 |:----:|:----:|
 |trace  |  对角线元素之和(矩阵的迹) |
@@ -223,8 +278,8 @@ addmm/addbmm/addmv/addr/baddbmm..  |	矩阵运算|
 |inverse	   | 求逆矩阵  |
 |svd   |	奇异值分解 | 
 
-### 五，使用.item()来获得元素tensor的value
->可将一个标量Tensor转换成一个Python number。
+### 五，标量Tensor转换成一个Python number
+>使用.item()来获得元素tensor的value，可将一个标量Tensor转换成一个Python number。
 ~~~py
 x = torch.randn(1)
 print(x)
@@ -265,3 +320,4 @@ print(f"n: {n}")
 #Out:
 t: tensor([2., 2., 2., 2., 2.], dtype=torch.float64)
 n: [2. 2. 2. 2. 2.]
+

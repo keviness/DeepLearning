@@ -1,4 +1,4 @@
-#---Chapter1: Tensors---
+#---Chapter1: Tensors Create---
 import torch
 import numpy as np
 
