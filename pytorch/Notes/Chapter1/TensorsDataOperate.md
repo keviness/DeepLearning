@@ -46,7 +46,6 @@ print(x)
 #输出:
 tensor([ 5.5000,  3.0000])
 ~~~
-
 ##### （2）基于已经存在的tensor创建一个tensor
 ~~~py
 #此方法会默认重用输入Tensor的一些属性，例如数据类型，除非自定义数据类型。
@@ -146,6 +145,7 @@ tensor([[-0.1859,  1.3970,  0.5236],
 
 ### 三，索引、切片操作（Indexing, Slicing）
 #### （一）索引与切片
+##### 1，类似NumPy的索引与切片
 >可以使用类似NumPy的索引操作来访问Tensor的一部分，需要注意的是：索引出来的结果与原数据共享内存，即修改一个，另一个会跟着修改。
 ~~~py
 print(x[:, 1])
@@ -162,7 +162,42 @@ print(x[0, :]) # 源tensor也被改了
 tensor([1.6035, 1.8110, 0.9549])
 tensor([1.6035, 1.8110, 0.9549])
 ~~~
-#### （二）PyTorch其他高级的选择函数:
+
+##### 2, torch.index_select(input, dim, index, *, out=None)
+>torch.index_select(input, dim, index, *, out=None) → Tensor
+~~~py
+>>> x = torch.randn(3, 4)
+>>> x
+tensor([[ 0.1427,  0.0231, -0.5414, -1.0009],
+        [-0.4664,  0.2647, -0.1228, -1.1068],
+        [-1.1734, -0.6571,  0.7230, -0.6004]])
+>>> indices = torch.tensor([0, 2])
+>>> torch.index_select(x, 0, indices)
+tensor([[ 0.1427,  0.0231, -0.5414, -1.0009],
+        [-1.1734, -0.6571,  0.7230, -0.6004]])
+>>> torch.index_select(x, 1, indices)
+tensor([[ 0.1427, -0.5414],
+        [-0.4664, -0.1228],
+        [-1.1734,  0.7230]])
+~~~
+##### 3, torch.masked_select(input, mask, *, out=None)
+>torch.masked_select(input, mask, *, out=None) → Tensor
+~~~py
+>>> x = torch.randn(3, 4)
+>>> x
+tensor([[ 0.3552, -2.3825, -0.8297,  0.3477],
+        [-1.2035,  1.2252,  0.5002,  0.6248],
+        [ 0.1307, -2.0608,  0.1244,  2.0139]])
+>>> mask = x.ge(0.5)
+>>> mask
+tensor([[False, False, False, False],
+        [False, True, True, True],
+        [False, False, False, True]])
+>>> torch.masked_select(x, mask)
+tensor([ 1.2252,  0.5002,  0.6248,  2.0139])
+~~~
+
+##### 4, PyTorch其他高级的选择函数:
 | 函数  |  功能   |
 |:----:|:-------:|
 |index_select(input, dim, index)| 在指定维度dim上选取，比如选取某些行、某些列
@@ -170,7 +205,7 @@ tensor([1.6035, 1.8110, 0.9549])
 |nonzero(input)	                |非0元素的下标
 |gather(input, dim, index)	|根据index，在dim维度上选取数据，输出的size与index一样
 
-### 四，Tensors拼接与变形
+### 四，Tensors拼接、分割与变形
 #### （一）拼接（join）
 ##### 1, torch.cat(tensors, dim)
 >torch.cat(tensors, dim=0, *, out=None) → Tensor
@@ -194,24 +229,32 @@ tensor([[ 0.6580, -1.0969, -0.4614,  0.6580, -1.0969, -0.4614,  0.6580,
 ~~~
 ##### 2, torch.chunk(input, chunks, dim=0)
 >torch.chunk(input, chunks, dim=0) → List of Tensors
-##### 3, torch.index_select(input, dim, index, *, out=None)
->torch.index_select(input, dim, index, *, out=None) → Tensor
+
+#### （二）分割（split）
+##### 1，split()
+>torch.split(tensor, split_size_or_sections, dim=0)
 ~~~py
->>> x = torch.randn(3, 4)
->>> x
-tensor([[ 0.1427,  0.0231, -0.5414, -1.0009],
-        [-0.4664,  0.2647, -0.1228, -1.1068],
-        [-1.1734, -0.6571,  0.7230, -0.6004]])
->>> indices = torch.tensor([0, 2])
->>> torch.index_select(x, 0, indices)
-tensor([[ 0.1427,  0.0231, -0.5414, -1.0009],
-        [-1.1734, -0.6571,  0.7230, -0.6004]])
->>> torch.index_select(x, 1, indices)
-tensor([[ 0.1427, -0.5414],
-        [-0.4664, -0.1228],
-        [-1.1734,  0.7230]])
+>>> a = torch.arange(10).reshape(5,2)
+>>> a
+tensor([[0, 1],
+        [2, 3],
+        [4, 5],
+        [6, 7],
+        [8, 9]])
+>>> torch.split(a, 2)
+(tensor([[0, 1],
+         [2, 3]]),
+ tensor([[4, 5],
+         [6, 7]]),
+ tensor([[8, 9]]))
+>>> torch.split(a, [1,4])
+(tensor([[0, 1]]),
+ tensor([[2, 3],
+         [4, 5],
+         [6, 7],
+         [8, 9]]))
 ~~~
-#### （二）变形（mutate）
+#### （三）变形（mutate）
 > 可以使用torch.view改变Tensor形状
 > Tenso形状的改变为原地修改
 ~~~py
@@ -272,7 +315,7 @@ tensor([1.6035, 1.8110, 0.9549, 1.8797, 2.0482, 0.9555, 0.2771, 3.8663, 0.4345,
 |diag   |  对角线元素 |
 |triu/tril    |	 矩阵的上三角/下三角，可指定偏移量 |
 |mm/bmm       |	矩阵乘法，batch的矩阵乘法 |
-addmm/addbmm/addmv/addr/baddbmm..  |	矩阵运算|
+|addmm/addbmm/addmv/addr/baddbmm..  |	矩阵运算|
 |t   |	转置  |
 |dot/cross    |	 内积/外积|
 |inverse	   | 求逆矩阵  |
