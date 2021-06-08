@@ -5,8 +5,50 @@
 * 数学公式：
 ![perceptron2](../imgs/perceptron2.png)
 ### （二）感知机python实现
-#### 1，与门
-
+#### 1, 与门(AND)
+~~~py
+def AND(x1, x2):
+    x = np.array([x1, x2])
+    w = np.array([0.5, 0.5])
+    b = -0.7
+    tmp = np.sum(w*x) + b
+    if tmp <= 0:
+        return 0
+    else:
+        return 1
+~~~
+#### 2, 或门(OR)
+~~~py
+def OR(x1, x2):
+    x = np.array([x1, x2])
+    w = np.array([-0.5, -0.5]) # 仅权重和偏置与AND不同！
+    b = -0.2
+    tmp = np.sum(w*x) + b
+    if tmp <= 0:
+        return 0
+    else:
+        return 1
+~~~
+#### 3, 与非门(NAND)
+~~~py
+def NAND(x1, x2):
+    x = np.array([x1, x2])
+    w = np.array([-0.5, -0.5]) # 仅权重和偏置与AND不同！
+    b = 0.7
+    tmp = np.sum(w*x) + b
+    if tmp <= 0:
+        return 0
+    else:
+        return 1
+~~~
+#### 4, 异或门(XOR)
+~~~py
+def XOR(x1, x2):
+    s1 = NAND(x1, x2)
+    s2 = OR(x1, x2)
+    y = AND(s1, s2)
+    return y
+~~~
 ### （三）感知机小结
 * 感知机是具有输入和输出的算法。给定一个输入后，将输出一个既定的值。
 • 感知机将权重和偏置设定为参数。
