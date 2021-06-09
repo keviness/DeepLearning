@@ -8,7 +8,7 @@
 | Chapters | Descriptions | Notes |  Examples  |
 |:--------:|:------------:|:-----:|:----------:|
 |  Chapter1|  python简介  | [python简介](./DeepLearningFoundation/Notes/Chapter1/) | -- |
-|  Chapter2|  感知机（perceptron）  | [perceptron](./DeepLearningFoundation/Notes/Chapter2/) | -- |
+|  Chapter2|  感知机（perceptron）  | [perceptron](./DeepLearningFoundation/Notes/Chapter2/perceptron.md) | [感知机实现](./DeepLearningFoundation/Examples/Chapter2/perceptron.py) |
 
 ## 二，动手学深度学习（Pytorch）
 ![Pytorch Chapters](./pytorch/imgs/PytorchChapter.png)
