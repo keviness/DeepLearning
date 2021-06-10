@@ -66,3 +66,27 @@ plt.show()
 def relu(x):
     return np.maximum(0, x)
 ~~~
+
+## 三，神经网络内积运算
+### （一）矩阵乘法
+#### 1，矩阵乘法运算示意图
+![Matrix](./imgs/matrix1.png)
+#### 2，python实现矩阵内积
+~~~py
+>>> A = np.array([[1,2], [3,4]])
+>>> A.shape
+(2, 2)
+>>> B = np.array([[5,6], [7,8]])
+>>> B.shape
+(2, 2)
+>>> np.ndim(B) # 查看矩阵维度
+2
+>>> np.dot(A, B)
+array([[19, 22],
+ [43, 50]])
+~~~
+#### 3，矩阵乘法规律
+![Matrix](./imgs/matrix2.png)
+* 矩阵A * 矩阵B == 矩阵C：
+* * （1）A的列(1 Axis)必须与B的行(0 Axis)相等
+* * （2）矩阵C的维度 = （A矩阵的行，B矩阵的列）
