@@ -48,8 +48,7 @@ plt.show()
 #### 2，阶跃函数 VS sigmoid函数
 * （1）不同点
 * * “平滑性”的不同：sigmoid函数是一条平滑的曲线，输出随着输入发生连续性的变化。阶跃函数以0为界，输出发生急剧性的变化。sigmoid函数的平滑性对神经网络的学习具有重要意义。
-* * 返回值不同：阶跃函数只能返回0或1，sigmoid函数可以返
-回0.731 ...、0.880 ...等实数。也就是说，感知机中神经元之间流动的是0或1的二元信号，而神经网络中流动的是连续的实数值信号。
+* * 返回值不同：阶跃函数只能返回0或1，sigmoid函数可以返回0.731 ...、0.880 ...等实数。也就是说，感知机中神经元之间流动的是0或1的二元信号，而神经网络中流动的是连续的实数值信号。
 * （2）相同点
 * * 当输入信号为重要信息时，阶跃函数和sigmoid函数都会输出较大的值；当输入信号为不重要的信息时，两者都输出较小的值。
 * * 不管输入信号有多小，或者有多大，输出信号的值都在0到1之间。
@@ -90,3 +89,35 @@ array([[19, 22],
 * 矩阵A * 矩阵B == 矩阵C：
 * * （1）A的列(1 Axis)必须与B的行(0 Axis)相等
 * * （2）矩阵C的维度 = （A矩阵的行，B矩阵的列）
+
+## 四，神经网路的实现
+~~~py
+def init_network():
+    network = {}
+    network['W1'] = np.array([[0.1, 0.3, 0.5], [0.2, 0.4, 0.6]])
+    network['b1'] = np.array([0.1, 0.2, 0.3])
+    network['W2'] = np.array([[0.1, 0.4], [0.2, 0.5], [0.3, 0.6]])
+    network['b2'] = np.array([0.1, 0.2])
+    network['W3'] = np.array([[0.1, 0.3], [0.2, 0.4]])
+    network['b3'] = np.array([0.1, 0.2])
+    return network
+
+def forward(network, x):
+    W1, W2, W3 = network['W1'], network['W2'], network['W3']
+    b1, b2, b3 = network['b1'], network['b2'], network['b3']
+    # 第一层
+    a1 = np.dot(x, W1) + b1
+    z1 = sigmoid(a1)
+    # 第二层
+    a2 = np.dot(z1, W2) + b2
+    z2 = sigmoid(a2)
+    # 第三层（输出层）
+    a3 = np.dot(z2, W3) + b3
+    y = identity_function(a3)
+    return y
+
+network = init_network()
+x = np.array([1.0, 0.5])
+y = forward(network, x)
+print(y) # [ 0.31682708 0.69627909]
+~~~
