@@ -92,6 +92,7 @@ array([[19, 22],
 
 ## 四，神经网路的实现
 ~~~py
+# 神经网络初始化
 def init_network():
     network = {}
     network['W1'] = np.array([[0.1, 0.3, 0.5], [0.2, 0.4, 0.6]])
@@ -102,6 +103,7 @@ def init_network():
     network['b3'] = np.array([0.1, 0.2])
     return network
 
+# 前向身经网络（forward）
 def forward(network, x):
     W1, W2, W3 = network['W1'], network['W2'], network['W3']
     b1, b2, b3 = network['b1'], network['b2'], network['b3']
@@ -121,3 +123,39 @@ x = np.array([1.0, 0.5])
 y = forward(network, x)
 print(y) # [ 0.31682708 0.69627909]
 ~~~
+
+## 五，神经网络输出层的设计
+### （一）输出层激活函数
+1，神经网络可以用在分类问题和回归问题上，不过需要根据情况改变输出层的激活函数。
+2，一般而言，回归问题用恒等函数，分类问题用softmax函数。
+3，分类问题和回归问题:
+* 分类问题是数据属于哪一个类别的问题。比如，区分图像中的人是男性还是女性的问题就是分类问题。
+* 回归问题是根据某个输入预测一个（连续的）数值的问题。比如，根据一个人的图像预测这个人的体重的问题就是回归问题。
+#### 1，恒等函数
+* 恒等函数会将输入按原样输出，对于输入的信息，不加以任何改动地直接输出。
+* 在输出层使用恒等函数时，输入信号会原封不动地被输出。
+* 恒等函数输出层示意图：
+![恒等函数](./imgs/恒等函数.png)
+
+#### 2，softmax函数
+* 公式：
+![softmax](./imgs/softmax2.png)
+* 恒等函数输出层示意图：
+![softmax](./imgs/softmax.png)
+* softmax函数的特征
+（1）softmax函数的输出是0.0到1.0之间的实数。
+（2）softmax函数的输出值的总和是1。
+（3）输出总和为1是softmax函数的一个重要性质，正因为有了这个性质，我们才可以把softmax函数的输出解释为“概率”。
+* softmax函数python实现
+~~~py
+def softmax(a):
+ c = np.max(a)
+ exp_a = np.exp(a - c) # 溢出对策
+ sum_exp_a = np.sum(exp_a)
+ y = exp_a / sum_exp_a
+ return y
+~~~
+
+#### （二）输出层的神经元数量
+* 输出层的神经元数量需要根据待解决的问题来决定。
+* 对于分类问题，输出层的神经元数量一般设定为类别的数量
