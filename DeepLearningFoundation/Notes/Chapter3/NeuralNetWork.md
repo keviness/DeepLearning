@@ -107,10 +107,10 @@ def init_network():
 def forward(network, x):
     W1, W2, W3 = network['W1'], network['W2'], network['W3']
     b1, b2, b3 = network['b1'], network['b2'], network['b3']
-    # 第一层
+    # 第一层（输入层）
     a1 = np.dot(x, W1) + b1
     z1 = sigmoid(a1)
-    # 第二层
+    # 第二层（隐含层）
     a2 = np.dot(z1, W2) + b2
     z2 = sigmoid(a2)
     # 第三层（输出层）
@@ -149,11 +149,11 @@ print(y) # [ 0.31682708 0.69627909]
 * softmax函数python实现
 ~~~py
 def softmax(a):
- c = np.max(a)
- exp_a = np.exp(a - c) # 溢出对策
- sum_exp_a = np.sum(exp_a)
- y = exp_a / sum_exp_a
- return y
+    c = np.max(a)
+    exp_a = np.exp(a - c) # 溢出对策
+    sum_exp_a = np.sum(exp_a)
+    y = exp_a / sum_exp_a
+    return y
 ~~~
 
 #### （二）输出层的神经元数量
@@ -161,9 +161,9 @@ def softmax(a):
 * 对于分类问题，输出层的神经元数量一般设定为类别的数量
 
 ## 六，本章小结
-• 神经网络中的激活函数使用平滑变化的sigmoid函数或ReLU函数。
-• 通过巧妙地使用NumPy多维数组，可以高效地实现神经网络。
-• 机器学习的问题大体上可以分为回归问题和分类问题。
-• 关于输出层的激活函数，回归问题中一般用恒等函数，分类问题中一般用softmax函数。
-• 分类问题中，输出层的神经元的数量设置为要分类的类别数。
-• 输入数据的集合称为批。通过以批为单位进行推理处理，能够实现高速的运算。
+* 神经网络中的激活函数使用平滑变化的sigmoid函数或ReLU函数。
+* 通过巧妙地使用NumPy多维数组，可以高效地实现神经网络。
+* 机器学习的问题大体上可以分为回归问题和分类问题。
+* 关于输出层的激活函数，回归问题中一般用恒等函数，分类问题中一般用softmax函数。
+* 分类问题中，输出层的神经元的数量设置为要分类的类别数。
+* 输入数据的集合称为批。通过以批为单位进行推理处理，能够实现高速的运算。
