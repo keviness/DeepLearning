@@ -12,4 +12,26 @@
 * 损失函数是表示神经网络性能的“恶劣程度”的指标，即当前的神经网络对监督数据在多大程度上不拟合，在多大程度上不一致。
 * 以“性能的恶劣程度”为指标可能会使人感到不太自然，但是如果给损失函数乘上一个负值，就可以解释为“在多大程度上不坏”，即“性能有多好”。
 * 并且，“使性能的恶劣程度达到最小”和“使性能的优良程度达到最大”是等价的，不管是用“恶劣程度”还是“优良程度”，做的事情本质上都是一样的。
-#### （一）均方误差
+* 使用训练数据进行学习，严格来说，就是针对训练数据计算损失函数的值，找出使该值尽可能小的参数
+#### （一）均方误差（mean squared error）
+* 公式：
+![mean squared error](./imgs/MeanSquaredError.png)
+* python实现：
+~~~py
+def mean_squared_error(y, t):
+    return 0.5 * np.sum((y-t)**2)
+~~~
+#### （二）交叉熵误差（cross entropy error）
+* 公式：
+![cross entropy error](./imgs/CrossEntropyError.png)
+* python实现：
+~~~py
+def cross_entropy_error(y, t):
+    delta = 1e-7
+    return -np.sum(t * np.log(y + delta))
+~~~
+#### （三）平均损失函数
+* 把求单个数据的损失函数的式（4.2）扩大到了N份数据，不过最后还要除以N进行正规化。通过除以N，可以求单个数据的“平均损失函数”。
+* 通过这样的平均化，可以获得和训练数据的数量无关的统一指标。
+* 公式：
+![mean loss function](./imgs/MeanLossFunction.png)
