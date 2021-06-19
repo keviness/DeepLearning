@@ -1,4 +1,5 @@
 ## Chapter4 神经网络的学习
+
 ### 一，从数据中学习
 #### （一）数据驱动
 * 深度学习有时也称为端到端机器学习（end-to-end machinelearning）。这里所说的端到端是指从一端到另一端的意思，也就是从原始数据（输入）中获得目标结果（输出）的意思。
@@ -91,7 +92,7 @@ def numerical_gradient(f, x):
     grad[idx] = (fxh1 - fxh2) / (2*h)
     x[idx] = tmp_val # 还原值
     return grad
-~~~
+~~~ij
 
 ### 四，梯度（gradient）
 > 这样的由全部变量的偏导数汇总而成的向量称为梯度（gradient）。
