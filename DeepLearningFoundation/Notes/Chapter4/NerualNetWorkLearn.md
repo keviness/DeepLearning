@@ -122,3 +122,36 @@ def gradient_descent(f, init_x, lr=0.01, step_num=100):
 * （1）η表示更新量，在神经网络的学习中，称为学习率（learning rate）。学习率决定在一次学习中，应该学习多少，以及在多大程度上更新参数。在神经网络的学习中，一般会一边改变学习率的值，一边确认学习是否正确进行了。
 * （2）实验结果表明，学习率过大的话，会发散成一个很大的值；反过来，学习率过小的话，基本上没怎么更新就结束了，设定合适的学习率是一个很重要的问题。
 * （3）像学习率这样的参数称为超参数。这是一种和神经网络的参数（权重和偏置）性质不同的参数。相对于神经网络的权重参数是通过训练数据和学习算法自动获得的，学习率这样的超参数则是人工设定的。一般来说，超参数需要尝试多个值，以便找到一种可以使学习顺利进行的设定。
+
+#### （三）神经网络的梯度
+* 1，神经网络的学习也要求梯度，这里所说的梯度是指损失函数关于权重参数的梯度。
+##### 1，python实现简单神经网络
+~~~py
+import sys, os
+sys.path.append(os.pardir)
+import numpy as np
+from common.functions import softmax, cross_entropy_error
+from common.gradient import numerical_gradient
+class simpleNet:
+    def __init__(self):
+    self.W = np.random.randn(2,3) # 用高斯分布进行初始化
+    def predict(self, x):
+        return np.dot(x, self.W)
+
+    def loss(self, x, t):
+        z = self.predict(x)
+        y = softmax(z)
+        loss = cross_entropy_error(y, t)
+        return loss
+
+def f(W):
+    return net.loss(x, t)
+dW = numerical_gradient(f, net.W)
+>>> print(dW)
+[[ 0.21924763 0.14356247 -0.36281009]
+ [ 0.32887144 0.2153437 -0.54421514]]
+# 1，这表示如果将w11增加h，那么损失函数的值会增加0.2h。
+# 2，再如，对应的值大约是−0.5，这表示如果将w23增加h，损失函数的值将减小0.5h。
+# 3，因此，从减小损失函数值的观点来看，w23应向正方向更新，w11应向负方向更新。
+# 4，至于更新的程度，w23比w11的贡献要大。
+~~~
