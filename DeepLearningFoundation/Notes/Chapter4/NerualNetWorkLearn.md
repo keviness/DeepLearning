@@ -155,3 +155,65 @@ dW = numerical_gradient(f, net.W)
 # 3，因此，从减小损失函数值的观点来看，w23应向正方向更新，w11应向负方向更新。
 # 4，至于更新的程度，w23比w11的贡献要大。
 ~~~
+
+### 五，学习算法的实现
+* 1，“学习”：神经网络存在合适的权重和偏置，调整权重和偏置以便拟合训练数据的过程称为学习。
+* 2，随机梯度下降法（SGD, stochastic gradient descent）：因为使用的数据是随机选择的mini-batch数据。
+#### （一）学习步骤
+* 1，步骤1（mini-batch）
+&emsp;从训练数据中随机选出一部分数据，这部分数据称为mini-batch，我们的目标是减小mini-batch的损失函数的值。
+* 2，步骤2（计算梯度）
+&emsp;为了减小mini-batch的损失函数的值，需要求出各个权重参数的梯度，梯度表示损失函数的值减小最多的方向。
+* 3，步骤3（更新参数）
+&emsp;将权重参数沿梯度方向进行微小更新。
+* 4，步骤4（重复）
+&emsp;重复步骤1、步骤2、步骤3。
+
+#### （二）python实现2层神经网络的类
+~~~py
+import sys, os
+sys.path.append(os.pardir)
+from common.functions import *
+from common.gradient import numerical_gradient
+class TwoLayerNet:
+    def __init__(self, input_size, hidden_size, output_size,
+    weight_init_std=0.01):
+    # 初始化权重
+        self.params = {}
+        self.params['W1'] = weight_init_std * \
+        np.random.randn(input_size, hidden_size)
+        self.params['b1'] = np.zeros(hidden_size)
+        self.params['W2'] = weight_init_std * \
+        np.random.randn(hidden_size, output_size)
+        self.params['b2'] = np.zeros(output_size)
+
+    def predict(self, x):
+        W1, W2 = self.params['W1'], self.params['W2']
+        b1, b2 = self.params['b1'], self.params['b2']
+        a1 = np.dot(x, W1) + b1
+        z1 = sigmoid(a1)
+        a2 = np.dot(z1, W2) + b2
+        y = softmax(a2)
+        return y
+    # x:输入数据, t:监督数据
+    def loss(self, x, t):
+        y = self.predict(x)
+        return cross_entropy_error(y, t)
+        def accuracy(self, x, t):
+        y = self.predict(x)
+        y = np.argmax(y, axis=1)
+        t = np.argmax(t, axis=1)
+        accuracy = np.sum(y == t) / float(x.shape[0])
+        return accuracy
+    # x:输入数据, t:监督数据
+    def numerical_gradient(self, x, t):
+        loss_W = lambda W: self.loss(x, t)
+        grads = {}
+        grads['W1'] = numerical_gradient(loss_W, self.params['W1'])
+        grads['b1'] = numerical_gradient(loss_W, self.params['b1'])
+        grads['W2'] = numerical_gradient(loss_W, self.params['W2'])
+        grads['b2'] = numerical_gradient(loss_W, self.params['b2'])
+        return grads
+~~~
+
+#### （三）mini-batch的实现
