@@ -217,3 +217,58 @@ class TwoLayerNet:
 ~~~
 
 #### （三）mini-batch的实现
+~~~py
+# 读入数据
+(x_train, t_train), (x_test, t_test) = load_mnist(normalize=True, one_hot_label=True)
+
+network = TwoLayerNet(input_size=784, hidden_size=50, output_size=10)
+
+# 超参数
+iters_num = 10000  # 适当设定循环的次数
+train_size = x_train.shape[0]
+batch_size = 100
+learning_rate = 0.1
+
+train_loss_list = []
+train_acc_list = []
+test_acc_list = []
+
+iter_per_epoch = max(train_size / batch_size, 1)
+
+for i in range(iters_num):
+    # 获取mini-batch
+    batch_mask = np.random.choice(train_size, batch_size)
+    x_batch = x_train[batch_mask]
+    t_batch = t_train[batch_mask]
+    
+    # 计算梯度
+    #grad = network.numerical_gradient(x_batch, t_batch)
+    grad = network.gradient(x_batch, t_batch)
+    
+    # 更新参数
+    for key in ('W1', 'b1', 'W2', 'b2'):
+        network.params[key] -= learning_rate * grad[key]
+    
+    loss = network.loss(x_batch, t_batch)
+    train_loss_list.append(loss)
+    # 计算每个epoch的识别精度
+    if i % iter_per_epoch == 0:
+        train_acc = network.accuracy(x_train, t_train)
+        test_acc = network.accuracy(x_test, t_test)
+        train_acc_list.append(train_acc)
+        test_acc_list.append(test_acc)
+        print("train acc, test acc | " + str(train_acc) + ", " + str(test_acc))
+~~~
+
+#### （四）基于测试数据的评价
+* 1，神经网络的学习中，必须确认是否能够正确识别训练数据以外的其他数据，即确认是否会发生过拟合。
+* 2，过拟合是指，虽然训练数据中的数字图像能被正确辨别，但是不在训练数据中的数字图像却无法被识别的现象。
+* 3，神经网络学习的最初目标是掌握泛化能力，因此，要评价神经网络的泛化能力，就必须使用不包含在训练数据中的数据。
+
+### 五，小结
+* 机器学习中使用的数据集分为训练数据和测试数据。
+* 神经网络用训练数据进行学习，并用测试数据评价学习到的模型的泛化能力。
+* 神经网络的学习以损失函数为指标，更新权重参数，以使损失函数的值减小。
+* 利用某个给定的微小值的差分求导数的过程，称为数值微分。
+* 利用数值微分，可以计算权重参数的梯度。
+* 数值微分虽然费时间，但是实现起来很简单。下一章中要实现的稍微复杂一些的误差反向传播法可以高速地计算梯度。
