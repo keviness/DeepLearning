@@ -4,7 +4,7 @@ sys.path.append(os.pardir)  # 为了导入父目录的文件而进行的设定
 import numpy as np
 import matplotlib.pyplot as plt
 from dataset.mnist import load_mnist
-from two_layer_net import TwoLayerNet
+from twoLayerNet import TwoLayerNet
 
 # 读入数据
 (x_train, t_train), (x_test, t_test) = load_mnist(normalize=True, one_hot_label=True)
