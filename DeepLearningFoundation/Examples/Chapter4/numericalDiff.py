@@ -25,15 +25,6 @@ def numericalDiffAdvance(function, x):
 
     return grad
 
-# ---plot picture--
-def plotPicture(x, y):
-    #x = np.arange(0, 20, 0.1)
-    #y = function1(x)
-    plt.xlabel("x")
-    plt.ylabel("f(x)")
-    plt.plot(x, y)
-    plt.show()
-
 # ---functions---
 def function1(x):
     return 0.01 * x**2 + 0.1*x 
@@ -47,6 +38,26 @@ def tangent_line(f, x):
     y = f(x) - d*x
     return lambda t: d*t + y
     
+# --- gradient ----
+def gradient_dscent(function, init_x, learningrate=0.1, step_num=100):
+    x = init_x
+    result = []
+    for i in range(step_num):
+        result.append(x.copy())
+        grad = numericalDiffAdvance(function, x)
+        x -= learningrate * grad
+    result = np.array(result)
+
+    return result
+
+# ---plot picture--
+def plotPicture(x, y):
+    #x = np.arange(0, 20, 0.1)
+    #y = function1(x)
+    plt.xlabel("x0")
+    plt.ylabel("x1")
+    plt.scatter(x, y)
+    plt.show()
 
 # ---test---
 if __name__ == "__main__":
@@ -73,8 +84,14 @@ if __name__ == "__main__":
     plt.show()
     '''
     #---numericalDiffAdvance----
+    '''
     xTest = np.array([1.0, 3.0])
     yTest = function2(xTest)
     print("yTest:\n", yTest)
     grad = numericalDiffAdvance(function2, xTest)
     print("grad:\n", grad)
+    '''
+    test = np.array([-3.0, 4.0])
+    result = gradient_dscent(function2, init_x=test, learningrate=0.1, step_num=100)
+    print(result)
+    plotPicture(result[:,0], result[:,1])
