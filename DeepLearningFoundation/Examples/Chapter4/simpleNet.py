@@ -16,6 +16,11 @@ class simpleNet(object):
         loss = cross_entropy_error(y, t)
         return loss
 
+    def numDiff(self, x, t):
+        function = lambda W:self.loss(x, t)
+        df = numerical_gradient(function, self.W)
+        return df
+
 if __name__ == "__main__":
     net = simpleNet()
     print("net.W:\n", net.W)
@@ -25,6 +30,8 @@ if __name__ == "__main__":
     tSet = np.array([0, 0, 1])
     loss = net.loss(xSet, tSet)
     print("loss:\n", loss)
+
+    function = lambda W : net.loss(xSet, tSet)
     
-    function = lambda W : net.loss(x, t)
     df = numerical_gradient(function, net.W)
+    print("df:\n", df)
