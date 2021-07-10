@@ -50,7 +50,7 @@ def gradient_dscent(function, init_x, learningrate=0.1, step_num=100):
 
     return result
 
-# ---plot picture--
+# ---plot picture---
 def plotPicture(x, y):
     #x = np.arange(0, 20, 0.1)
     #y = function1(x)
