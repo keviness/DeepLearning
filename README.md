@@ -13,6 +13,7 @@
 | Chapter4 |  神经网络的学习  | [神经网络的学习](./DeepLearningFoundation/Notes/Chapter4/NerualNetWorkLearn.md)  | [神经网络的学习](./DeepLearningFoundation/Examples/Chapter4/trainNeuralnet.py)|
 | Chapter5 |  误差反向传播法（Backward Propagation）  | [误差反向传播法](./DeepLearningFoundation/Notes/Chapter5/误差反向传播法.md)  | [误差反向传播法](./DeepLearningFoundation/Examples/Chapter5/)|
 | Chapter6 |  与学习相关的技巧  | [与学习相关的技巧](./DeepLearningFoundation/Notes/Chapter6/与学习相关的技巧.md)  | [与学习相关的技巧](./DeepLearningFoundation/Examples/Chapter6/)|
+| Chapter7 |  卷积神经网络  | [卷积神经网络](./DeepLearningFoundation/Notes/Chapter7/卷积神经网络.md)  | [卷积神经网络](./DeepLearningFoundation/Examples/Chapter7/)|
 
 ## 二，动手学深度学习（Pytorch）
 ![Pytorch Chapters](./pytorch/imgs/PytorchChapter.png)
