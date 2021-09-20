@@ -82,7 +82,6 @@ class SimpleConvNet:
     def gradient(self, x, t):
         # forward
         self.loss(x, t)
-
         # backward
         dout = 1
         dout = self.last_layer.backward(dout)
