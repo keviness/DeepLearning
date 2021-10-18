@@ -1,0 +1,32 @@
+```python
+import torch
+import torch.nn.functional as F
+
+方法1，通过定义一个Net类来建立神经网络class Net(torch.nn.Module):
+def init(self, n_feature, n_hidden, n_output):
+	super(Net, self).init()
+	self.hidden = torch.nn.Linear(n_feature, n_hidden)
+	self.predict = torch.nn.Linear(n_hidden, n_output)def forward(self, x):
+	x = F.relu(self.hidden(x))
+	x = self.predict(x)
+	return xnet1 = Net(2, 10, 2)
+	print('方法1：\n', net1)
+方法2 通过torch.nn.Sequential快速建立神经网络结构net2 = torch.nn.Sequential(
+	torch.nn.Linear(2, 10),
+	torch.nn.ReLU(),
+	torch.nn.Linear(10, 2),
+	)
+print('方法2：\n', net2)经验证，两种方法构建的神经网络功能相同，结构细节稍有不同'''''
+方法1：
+Net (
+(hidden): Linear (2 -> 10)
+(predict): Linear (10 -> 2)
+)
+方法2：
+Sequential (
+(0): Linear (2 -> 10)
+(1): ReLU ()
+(2): Linear (10 -> 2)
+)
+'''
+```
