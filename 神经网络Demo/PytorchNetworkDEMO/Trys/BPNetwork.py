@@ -3,17 +3,32 @@ import torch
 import torch.nn as nn
 import numpy as np
 import torch.nn.functional as Fun
+#from sklearn.datasets import load_iris
+import pandas as pd
+
+'''
+#data = datasets.load_iris()
+data = datasets.load_breast_cancer()
+outputfile = "/Users/kevin/Desktop/program files/DeepLearning/神经网络Demo/PytorchNetworkDEMO/Trys/Data/breast_cancer.xls"  # 保存文件路径名
+column = list(data['feature_names'])
+dd = pd.DataFrame(data.data, index=range(569), columns=column)
+dt = pd.DataFrame(data.target, index=range(569), columns=['outcome'])
+
+jj = dd.join(dt, how='outer')  # 用到DataFrame的合并方法，将data.data数据与data.target数据合并
+jj.to_excel(outputfile)  # 将数据保存到outputfile文件中
+'''
 
 dataset = datasets.load_iris()
 data = dataset['data']
 iris_type = dataset['target']
-print(data)
+print(data.shape)
 print(iris_type)
 
-input = torch.FloatTensor(dataset['data'])
-print(input)
+inputData = torch.FloatTensor(dataset['data'])
+#print(input)
 label = torch.LongTensor(dataset['target'])
-print(label)
+#print(label)
+
 
 # 定义BP神经网络
 #方法一
@@ -40,11 +55,11 @@ net2 = torch.nn.Sequential(
 net = Net(n_feature=4, n_hidden=20, n_output=3)
 optimizer = torch.optim.SGD(net.parameters(), lr=0.05)
 # SGD:随机梯度下降法
-loss_func = torch.nn.CrossEntropyLoss
+loss_func = torch.nn.CrossEntropyLoss()
 # 设定损失函数
 
-for i in range(100):
-    out = net(input)
+for i in range(1000):
+    out = net(inputData)
     # 输出与label对比
     loss = loss_func(out, label)
     #初始化,必须在反向传播前先清零。
@@ -56,10 +71,23 @@ for i in range(100):
     # 根据刚刚反向传播得到的梯度更新模型参数
     optimizer.step()
 
-out = net(input)
+torch.save(net,'/Users/kevin/Desktop/program files/DeepLearning/神经网络Demo/PytorchNetworkDEMO/Trys/Data/model/net.pkl')  
+
+model = torch.load('/Users/kevin/Desktop/program files/DeepLearning/神经网络Demo/PytorchNetworkDEMO/Trys/Data/model/net.pkl')
+testData = np.array([[5.2, 3.2, 4.5, 0.2],[5.3, 3.5, 4.0, 0.1]])
+inputTest = torch.FloatTensor(testData)
+
+out =  model(inputTest)
+print("out:\n", out)
 # out是一个计算矩阵
+
 prediction = torch.max(out, 1)[1]
-pred_y = prediction.numpy()
+print("prediction:\n", prediction)
+
 # 预测y输出数列
-target_y = label.data.numpy()
+pred_y = prediction.numpy()
+print('pred_y:\n', pred_y)
+
 # 实际y输出数据
+target_y = label.data.numpy()
+print('target_y:\n', target_y)
