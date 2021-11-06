@@ -41,7 +41,7 @@ train.shape
 target = train.SalePrice
 
 # 输入特征，可以将SalePrice列扔掉
-train.drop(['SalePrice'],axis = 1 , inplace = True)
+train.drop(['SalePrice'], axis = 1 , inplace = True)
 
 # 将train和test合并到一起，一块进行特征工程，方便预测test的房价
 combined = train.append(test)
@@ -155,15 +155,15 @@ class Net(nn.Module):
   
     def __init__(self, features):
         super(Net, self).__init__()
-      
+    
         self.linear_relu1 = nn.Linear(features, 128)
         self.linear_relu2 = nn.Linear(128, 256)
         self.linear_relu3 = nn.Linear(256, 256)
         self.linear_relu4 = nn.Linear(256, 256)
         self.linear5 = nn.Linear(256, 1)
-      
+    
     def forward(self, x):
-      
+    
         y_pred = self.linear_relu1(x)
         y_pred = nn.functional.relu(y_pred)
 
