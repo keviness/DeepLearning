@@ -94,7 +94,7 @@ print(net)
 
 `torch.optim`是一个实现了各种优化算法的库。大部分常用的方法得到支持，并且接口具备足够的通用性。为了使用 `torch.optim`，你需要构建一个optimizer对象。这个对象能够保持当前参数状态并基于计算得到的梯度进行参数更新。
 
-为了构建一个 `Optimizer`，你需要给它一个包含了需要优化的参数（必须都是 `Variable`对象）的iterable。然后，你可以设置optimizer的参 数选项，比如学习率，权重衰减，等等。^[[1]](https://zhuanlan.zhihu.com/p/114980874#ref_1)^
+为了构建一个 `Optimizer`，你需要给它一个包含了需要优化的参数（必须都是 `Variable`对象）的iterable。然后，你可以设置optimizer的参数选项，比如学习率，权重衰减，等等。
 
 ```text
 optimizer = torch.optim.SGD(net.parameters(),lr = 0.1)
@@ -103,7 +103,7 @@ loss_func = torch.nn.MSELoss()
 
 采用随机梯度下降进行训练，损失函数采用常用的均方损失函数，设置学习率为0.1，可以根据需要进行设置，原则上越小学习越慢，但是精度也越高，然后进行迭代训练（这里设置为5000次）
 
-```text
+```python
 for t in range(5000):
     prediction = net(x)
     loss = loss_func(prediction,y)
@@ -113,11 +113,11 @@ for t in range(5000):
     optimizer.step()
 ```
 
-**optimizer.zero_grad()** 意思是把梯度置零，也就是把loss关于weight的导数变成0，即将梯度初始化为零（因为一个batch的loss关于weight的导数是所有sample的loss关于weight的导数的累加和）；**loss.backward() **对loss进行反向传播，  **optimizer.step()** 再对梯度进行优化，更新所有参数。
+**optimizer.zero_grad()** 意思是把梯度置零，也就是把loss关于weight的导数变成0，即将梯度初始化为零（因为一个batch的loss关于weight的导数是所有sample的loss关于weight的导数的累加和），**loss.backward()** 对loss进行反向传播，**optimizer.step()** 再对梯度进行优化，更新所有参数。
 
 ## 动态显示学习过程
 
-```text
+```python
     if t%5 ==0:
         plt.cla()
         plt.scatter(x.data.numpy(), y.data.numpy())
@@ -143,7 +143,7 @@ for t in range(5000):
 
 ## 附完整代码
 
-```text
+```python
 import torch
 import torch.nn as nn
 import torch.nn.functional as F

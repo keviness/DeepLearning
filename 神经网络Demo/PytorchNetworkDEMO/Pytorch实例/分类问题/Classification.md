@@ -4,7 +4,7 @@ Pytorch搭建简单神经网络（一）简单介绍了回归，本文将简单�
 
 ## **导包**
 
-```python3
+```python
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -14,7 +14,7 @@ from torch.autograd import Variable
 
 ## 生成数据
 
-```python3
+```python
 n_data = torch.ones(100,2)
 x0 = torch.normal(2*n_data,1)
 y0 = torch.zeros(100)
@@ -34,7 +34,7 @@ x,y = Variable(x),Variable(y)
 
 ## 搭建简易神经网络
 
-```python3
+```python
 class Net(torch.nn.Module):
     def __init__(self,n_input,n_hidden,n_output):
         super(Net,self).__init__()
