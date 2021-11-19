@@ -107,7 +107,7 @@ for t in range(100):
 
 ## 附完整代码
 
-```python3
+```python
 import torch
 import numpy as np
 from torch.autograd import Variable

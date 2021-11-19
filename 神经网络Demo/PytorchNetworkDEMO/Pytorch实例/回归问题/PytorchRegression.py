@@ -30,7 +30,7 @@ class Net(nn.Module):
         return out
 
 net = Net(1,20,1)
-print(net)
+#print(net)
 
 optimizer = torch.optim.SGD(net.parameters(),lr = 0.1)
 loss_func = torch.nn.MSELoss()
