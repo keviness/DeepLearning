@@ -1,10 +1,10 @@
 import torch
 import numpy as np
-from torch.autograd import Variable
+from torch.autograd import Variable, variable
 import torch.nn.functional as F
 import matplotlib.pyplot as plt
 
-cachePath = "/Users/kevin/Desktop/program files/DeepLearning/神经网络Demo/PytorchNetworkDEMO/Pytorch实例/分类问题/model"
+cachePath = "/Users/kevin/Desktop/program files/DeepLearning/神经网络Demo/PytorchNetworkDEMO/Pytorch实例/分类问题/model/"
 
 n_data = torch.ones(100,2)
 x0 = torch.normal(2*n_data,1)
@@ -52,6 +52,7 @@ plt.ion()
 plt.show()
 
 # train model
+'''
 acc = 0.0
 for t in range(500):
     out = net(x)
@@ -67,7 +68,7 @@ for t in range(500):
     target_y = y.data.numpy()
     accuracy = sum(pred_y == target_y) / 200.  # 预测中有多少和真实值一样
     if accuracy > acc:
-        torch.save(net, cachePath)
+        torch.save(net, cachePath+'net.pkl')
         acc = accuracy
         
     if t%2==0:
@@ -80,20 +81,23 @@ for t in range(500):
 
 plt.ioff()  # 停止画图
 plt.show()
-
+'''
 # predict
-net = torch.load(cachePath)
+net = torch.load(cachePath+'net.pkl')
 test_data = torch.ones(80,2)
 test1 = torch.normal(2*test_data, 1)
 test1_label = torch.zeros(80)
 test2 = torch.normal(-2*test_data, 1)
-test2_label = torch.zeros(80)
-test = torch.cat((test1, test2), 1)
+test2_label = torch.ones(80)
+test = torch.cat((test1, test2))
 label = torch.cat((test1_label, test2_label))
-
+test = Variable(test)
+label = Variable(label)
+print('test:\n', test)
+print('labels:\n', label)
 Out = net(test)
 prediction = torch.max(Out,1)[1]
 pred_y = prediction.data.numpy().squeeze()
-target_y = y.data.numpy()
+target_y = label.data.numpy()
 accuracy = sum(pred_y == target_y) / 160
 print('accuracy:\n', accuracy)

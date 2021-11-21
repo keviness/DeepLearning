@@ -1,4 +1,4 @@
-# Pytorch搭建简单神经网络（三):网络快速搭建、保存与提取
+# Pytorch搭建简单神经网络(三):网络快速搭建、保存与提取
 
 但是如何快速搭建一个简单的神经网络而不是定义一个类再去调用，以及我们定义了一个网络并训练好，该如何在日后去调用这个网络去实现相应的功能。
 
@@ -107,7 +107,7 @@ torch.save(net.state_dict(),'net_parameter.pkl')    #保存优化选项默认字
 
 运行后在当前目录生成指定pkl文件
 
-![](https://pic2.zhimg.com/80/v2-c3f5e3a9be6a0c9d8ede00ca9ef91be9_1440w.jpg)---
+![img](https://pic2.zhimg.com/80/v2-c3f5e3a9be6a0c9d8ede00ca9ef91be9_1440w.jpg)
 
 ## 三、网络的提取
 
@@ -117,7 +117,7 @@ torch.save(net.state_dict(),'net_parameter.pkl')    #保存优化选项默认字
 
 直接调用torch.load来提取整个网络
 
-torch.load从磁盘文件中读取一个通过 `torch.save()`保存的对象。`torch.load()`可通过参数 `map_location`动态地进行内存重映射，使其能从不动设备中读取文件。一般调用时，需两个参数: storage 和 location tag. 返回不同地址中的storage，或着返回None (此时地址可以通过默认方法进行解析). 如果这个参数是字典的话，意味着其是从文件的地址标记到当前系统的地址标记的映射。^[[4]](https://zhuanlan.zhihu.com/p/115251842#ref_4)^
+torch.load从磁盘文件中读取一个通过 `torch.save()`保存的对象。`torch.load()`可通过参数 `map_location`动态地进行内存重映射，使其能从不动设备中读取文件。一般调用时，需两个参数: storage 和 location tag. 返回不同地址中的storage，或着返回None (此时地址可以通过默认方法进行解析). 如果这个参数是字典的话，意味着其是从文件的地址标记到当前系统的地址标记的映射。
 
 ```text
 net1 = torch.load('net.pkl')
