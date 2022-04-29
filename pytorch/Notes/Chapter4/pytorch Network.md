@@ -26,8 +26,7 @@
 
 定义神经网络
 
-```
-
+```python
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -71,7 +70,7 @@ print(net)
 
 输出：
 
-```
+```python
 
 Net(
   (conv1): Conv2d(1, 6, kernel_size=(5, 5), stride=(1, 1))
@@ -104,9 +103,7 @@ torch.Size([6, 1, 5, 5])
 
 让我们尝试随机生成一个 32x32 的输入。注意：期望的输入维度是 32x32 。为了使用这个网络在 MNIST 数据及上，你需要把数据集中的图片维度修改为 32x32。
 
-```
-
-
+```python
 input = torch.randn(1, 1, 32, 32)
 out = net(input)
 print(out)
