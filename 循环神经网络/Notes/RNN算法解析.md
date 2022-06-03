@@ -24,13 +24,7 @@
 
 而循环神经网络通过使用带自反馈的神经元，使得网络的输出不仅和当前的输入有关，还和上一时刻的输出相关，于是在处理任意长度的时序数据时，就具有短期记忆能力。
 
-给定一个输入序列
-
-![](https://fjjwhjwd3p.feishu.cn/space/api/box/stream/download/asynccode/?code=ZWU2MjJkMmJmNjhmNmJiMjMxNDBjNjA0OWU2OTdmZDZfS2lpSDFOdzV1VGtoRTE3Nk9RSWhNUDJHM3FmVHNvUEVfVG9rZW46Ym94Y25xOHNBNmRJVXF3RkJ3Qzc1S0FrTXVkXzE2NTQxNzg3MzU6MTY1NDE4MjMzNV9WNA)
-
-，循环神经网络通过以下的公式来更新带反馈边的隐含层的活性值ht：
-
-![](https://fjjwhjwd3p.feishu.cn/space/api/box/stream/download/asynccode/?code=YjkyNTU1ZmEzYmI1MWZiN2M4Y2RkYzBmOTFlZThhNzhfd05Dc05MR0ZFSjZlQVN6T3hFWG16clRQWHJacHliQm9fVG9rZW46Ym94Y25MNWh1OEZTVnNrOGdhSDhReFdzS01mXzE2NTQxNzg3MzU6MTY1NDE4MjMzNV9WNA)
+给定一个输入序列，循环神经网络通过以下的公式来更新带反馈边的隐含层的活性值ht：
 
 其中h0=0，f(•)是一个非线性函数，隐藏层的活性值ht又称为状态或隐状态。示例如下：
 
@@ -274,8 +268,4 @@ ht与ht-1之间既有线性关系，也有非线性关系，在一定程度上�
 
 其中f1(•)和f2(•)分别表示用作编码器和解码器的循环神经网络，g(•)为分类器。编码器和解码器的工作过程如下图所示：
 
-![](https://fjjwhjwd3p.feishu.cn/space/api/box/stream/download/asynccode/?code=OTdjNGM0NzBjMWM0NjdmNWZjYTdhY2NhM2FmMzI5NTRfVW5MYnh4Y0lYbmZqZThUQjdTMGJPUVh2enVpdGtOekJfVG9rZW46Ym94Y244VHJ2enRjYW0yMmNDUEw1V3lCdkxiXzE2NTQxNzg3MzU6MTY1NDE4MjMzNV9WNA)
-
-参考资料：
-
-邱锡鹏：《神经网络与深度学习》
+![img](https://fjjwhjwd3p.feishu.cn/space/api/box/stream/download/asynccode/?code=OTdjNGM0NzBjMWM0NjdmNWZjYTdhY2NhM2FmMzI5NTRfVW5MYnh4Y0lYbmZqZThUQjdTMGJPUVh2enVpdGtOekJfVG9rZW46Ym94Y244VHJ2enRjYW0yMmNDUEw1V3lCdkxiXzE2NTQxNzg3MzU6MTY1NDE4MjMzNV9WNA)

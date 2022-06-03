@@ -1,4 +1,4 @@
-卷积神经网络实现THUCNews新闻文本分类(Pytorch实现)
+# 卷积神经网络实现THUCNews新闻文本分类(Pytorch实现)
 
 卷积神经网络实现THUCNews新闻文本分类（Pytorch实现）代码结构
 
