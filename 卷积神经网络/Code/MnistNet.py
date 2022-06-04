@@ -14,7 +14,6 @@ BATCH_SIZE = 50
 LR = 0.001              # learning rate
 DOWNLOAD_MNIST = False
 
-
 # Mnist digits dataset
 if not(os.path.exists('./mnist/')) or not os.listdir('./mnist/'):
     # not mnist dir or mnist is empyt dir
