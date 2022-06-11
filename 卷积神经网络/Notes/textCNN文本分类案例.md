@@ -61,7 +61,7 @@ CNN-multichannel： Embedding layer有两个channel，一个channel为static，�
 
 一行文本即实际的一个样本，样本数据分别在neg.txt和pos.txt文件中。在进行数据预处理之前，先介绍一下本任务可能用到的一些参数，这些参数我放在了一个config.py的文件中，内容如下：
 
-```text
+```python
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 """
