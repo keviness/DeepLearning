@@ -204,7 +204,6 @@ class Model(nn.Module):
 
 该模型数据流向图：
 
-![](https://fjjwhjwd3p.feishu.cn/space/api/box/stream/download/asynccode/?code=OGRlNzhkMTc5YzZiM2Q4Y2EzNmU5YWY2NGRkNzY4ZTFfUGNoc2lvNWt0dGNveHdWdlpkUjhsY2txYXFzYWxiZkRfVG9rZW46Ym94Y25sbldZa0N1YTFLa0txRnVjQ2ZFQTBmXzE2NTM1ODI5NjY6MTY1MzU4NjU2Nl9WNA)
 
  整体模型打印如下：
 
