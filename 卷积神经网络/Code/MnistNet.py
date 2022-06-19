@@ -117,5 +117,6 @@ plt.ioff()
 # print 10 predictions from test data
 test_output, _ = cnn(test_x[:10])
 pred_y = torch.max(test_output, 1)[1].data.numpy()
+
 print(pred_y, 'prediction number')
 print(test_y[:10].numpy(), 'real number')
