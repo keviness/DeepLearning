@@ -10,8 +10,6 @@
 
  CIFAR包含常见的10类物体的照片，照片的size 为32×32，每一类照片有6000张，所以一共6000万张照片，我们把6万张照片随机选出5万张照片作为training，剩余的1万张作为test.
 
-![](https://fjjwhjwd3p.feishu.cn/space/api/box/stream/download/asynccode/?code=NzAxMGExMjBkODRmYTM1MmU5OGQxZmM0NDU5ZjNhNGZfS3NrTVE2UmdxaEZpZlQ3Y1VodWFaWmF5U2xrbGI1SUtfVG9rZW46Ym94Y25pZWRFbHZDbjVwUWR2R3llNW1aSGZmXzE2NTM1ODIxOTA6MTY1MzU4NTc5MF9WNA)
-
 ### CIFAR10代码实战准备
 
 1. **数据集的加载与使用**，加载数据要用到的函数类：DataLoader、datasets、transforms，从对应的包中导入。过iter方法把DataLoader迭代器先得到，使用迭代器.next()方法得到一个batch，来验证数据的shape和label的shape，得到最终结果：x: torch.Size([32, 3, 32, 32]) label: torch.Size([32])。详细代码：
