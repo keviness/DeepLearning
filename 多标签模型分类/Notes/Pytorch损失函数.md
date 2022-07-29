@@ -6,7 +6,6 @@
 
 ```Python
 from sklearn.datasets import make_multilabel_classification
-
 X, y = make_multilabel_classification(n_samples=1000,
                                           n_features=10,
                                           n_classes=3,
