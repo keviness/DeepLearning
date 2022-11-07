@@ -18,15 +18,11 @@ Part V：总结
 
 关键词提取是文本挖掘领域一个很重要的部分，通过对文本提取的关键词可以窥探整个文本的主题思想，进一步应用于文本的推荐或文本的搜索。
 
-![](https://fjjwhjwd3p.feishu.cn/space/api/box/stream/download/asynccode/?code=YmRjMzkxZTJjZmQ0ODEwYWY5ZTc1N2MxMTFmM2RmZDZfMmZtM1d4aXVyT0ZXZlF3TEI2cW96SnpUNk1lYW5jTTZfVG9rZW46Ym94Y25SckY1U1Z3UExMWVBCcFg5ejk2NFYyXzE2NjYyODAxNzA6MTY2NjI4Mzc3MF9WNA)
-
 文本关键词提取算法大致分为有监督和无监督两种：
 
 **有监督算法 **将关键词抽取问题转换为判断每个候选关键词是否为关键词的  **二分类问题 ** ，它需要一个已经标注关键词的文档集合训练分类模型。然而标注训练集非常费时费力，所以无监督算法更为常用。
 
 **无监督算法 **不需要人工标注的训练集，利用某些方法发现文本中比较重要的词作为关键词，进行关键词抽取。词重要性的衡量有多种方式：  **基于文本统计特征、基于词图模型和基于主题模型 ** ，TF-IDF、TextRank和LDA分别是这几种不同方式的代表。无监督的文本关键词抽取流程如下：
-
-![](https://fjjwhjwd3p.feishu.cn/space/api/box/stream/download/asynccode/?code=MTc5NTlmZWNjMGJiMTc0MzVkMDcyMzg5YWM0OTRjNTVfcm9CUG9JTlkwRUFCNWlMQk1oUFludnVONkxCMmhiUFVfVG9rZW46Ym94Y255VEExQjVkR01PTjVEcTNaajhqblZnXzE2NjYyODAxNzA6MTY2NjI4Mzc3MF9WNA)
 
 ---
 
@@ -94,7 +90,7 @@ PageRank求网页i的PR值的计算公式如下：
 
 我们看一下关键代码：
 
-```Plaintext
+```python
 def extract_tags(self, sentence, topK=20, withWeight=False, allowPOS=(), withFlag=False):
 # （1）中文分词
     if allowPOS:
