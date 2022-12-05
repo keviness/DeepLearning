@@ -19,6 +19,7 @@ jj.to_excel(outputfile)  # 将数据保存到outputfile文件中
 '''
 
 dataset = datasets.load_iris()
+#dataset = datasets.load_digits()
 data = dataset['data']
 iris_type = dataset['target']
 print(data.shape)

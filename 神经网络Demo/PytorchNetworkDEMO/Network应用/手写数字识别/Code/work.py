@@ -3,25 +3,26 @@ from torch import nn, optim
 from torch.autograd import Variable
 from torch.utils.data import DataLoader
 from torchvision import datasets, transforms
-
 import Network
+
 
 # 定义一些超参数
 batch_size = 64
 learning_rate = 0.02
 num_epoches = 20
 
+trainInputPath = '/Users/kevin/Desktop/program files/DeepLearning/神经网络Demo/PytorchNetworkDEMO/Network应用/手写数字识别/Data/trainingDigits/'
+testInputPath = '/Users/kevin/Desktop/program files/DeepLearning/神经网络Demo/PytorchNetworkDEMO/Network应用/手写数字识别/Data/testDigits/'
 # 数据预处理。transforms.ToTensor()将图片转换成PyTorch中处理的对象Tensor,并且进行标准化（数据在0~1之间）
 # transforms.Normalize()做归一化。它进行了减均值，再除以标准差。两个参数分别是均值和标准差
 # transforms.Compose()函数则是将各种预处理的操作组合到了一起
-data_tf = transforms.Compose(
-    [transforms.ToTensor(),
-     transforms.Normalize([0.5], [0.5])])
+data_tf = transforms.Compose([transforms.ToTensor(),transforms.Normalize([0.5], [0.5])])
 
 # 数据集的下载器
-train_dataset = datasets.MNIST(
-    root='./data', train=True, transform=data_tf, download=True)
-test_dataset = datasets.MNIST(root='./data', train=False, transform=data_tf)
+
+train_dataset = datasets.MNIST(root=trainInputPath, train=True, transform=data_tf, download=False)
+test_dataset = datasets.MNIST(root=testInputPath, train=False, transform=data_tf)
+
 train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
 test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
 

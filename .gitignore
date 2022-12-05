@@ -3,6 +3,7 @@ toturials
 SourceCode
 model
 __pycache__
-*.txt
 .DS_Store
 */.DS_Store
+*.zip
+*.txt
