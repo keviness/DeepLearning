@@ -68,7 +68,7 @@ def convertTextToToken(contentArray, maxLength):
     return inputIds, attentionMask, token_type_ids
 
 
-samples = ['[CLS] 祛风除湿；活血能络。主风湿痹痛；跌打损伤；外伤出血｜ [SEP] [MASK] [MASK] [MASK] [MASK] [MASK]  [SEP]']  # 准备输入模型的语句
+samples = ['[CLS] 清热解毒;利湿化滞;活血消肿。｜ [SEP] [MASK] [MASK] [MASK] [MASK] [MASK]  [SEP]']  # 准备输入模型的语句
 
 tokenizer = BertTokenizer.from_pretrained(UNCASED)
 tokenized_text = [tokenizer.tokenize(i) for i in samples]
